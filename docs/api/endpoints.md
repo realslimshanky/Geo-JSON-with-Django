@@ -31,10 +31,12 @@ password | password of the user.
 Status: 200 OK
 {
     "auth_token": "eyJ0eXAiOiJKV1QiL",
-    "email": "ak123@fueled.com",
+    "email": "hello@example.com",
     "id": "f9dceed1-0f19-49f4-a874-0c2e131abf79",
-    "first_name": "",
-    "last_name": ""
+    "name": "Your name",
+    "phone_number": "+999999999",
+    "language": "en",
+    "currency": "USD",
 }
 ```
 
@@ -46,16 +48,24 @@ POST /api/auth/register
 
 **Parameters**
 
-Name     | Description
----------|-------------------------------------
-email    | email of the user. Errors out if email already registered.
-password | password of the user.
+Name         | Description
+-------------|-------------------------------------
+email        | email of the user. Errors out if email already registered.
+password     | password of the user.
+name         | full name of the user
+phone_number | phone number in the format: '+999999999'. Up to 15 digits.
+language     | Language choices as defined by ISO 639 https://en.wiktionary.org/wiki/Index:All_languages, currently the application supports, 'en', 'fr', 'de', 'it', 'ja', 'hi', 'ko'and 'ru'.
+currency     | currency choices as defined by ISO 4217 https://en.wikipedia.org/wiki/ISO_4217#Active_codes, currtly the application supports, 'USD', 'EUR', 'JPY', 'INR', 'KPW', 'KRW' and 'RUB'.
 
 **Request**
 ```json
 {
     "email": "hello@example.com",
-    "password": "VerySafePassword0909"
+    "password": "VerySafePassword0909",
+    "name": "New User",
+    "phone_number": "+999999999",
+    "language": "en",
+    "currency": "USD",
 }
 ```
 
@@ -67,8 +77,10 @@ Status: 201 Created
     "auth_token": "eyJ0eXAiOiJKV1QiLCJh",
     "email": "test@test.com",
     "id": "f9dceed1-0f19-49f4-a874-0c2e131abf79",
-    "first_name": "",
-    "last_name": ""
+    "name": "New User",
+    "phone_number": "+999999999",
+    "language": "en",
+    "currency": "USD",
 }
 ```
 
@@ -97,70 +109,6 @@ new_password     | New password of the user.
 ```
 Status: 204 No-Content
 ```
-
-
-## Request password for reset
-
-Send an email to user if the email exist.
-
-```
-POST /api/auth/password_reset
-```
-
-**Parameters**
-
-Name  | Description
-------|-------------------------------------
-email | (required) valid email of an existing user.
-
-**Request**
-```json
-{
-    "email": "hello@example.com"
-}
-```
-
-**Response**
-```json
-
-Status: 200 OK
-{
-    "message": "Further instructions will be sent to the email if it exists"
-}
-```
-
-
-## Confirm password reset
-
-Confirm password reset for the user using the token sent in email.
-
-```
-POST /api/auth/password_reset_confirm
-```
-
-**Parameters**
-
-Name          | Description
---------------|-------------------------------------
-new_password  | New password of the user
-token         | Token decoded from the url (verification link)
-
-
-**Request**
-```json
-{
-    "new_password": "new_pass",
-    "token" : "IgotTHISfromTHEverificationLINKinEmail"
-}
-```
-
-**Response**
-```
-Status: 204 No-Content
-```
-
-**Note**
-- The verification link uses the format of key `password-confirm` in `FRONTEND_URLS` dict in settings/common.
 
 
 # Current user actions
