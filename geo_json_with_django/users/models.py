@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import CIEmailField
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator
 
 # Geo JSON with Django Stuff
 from geo_json_with_django.base.models import UUIDModel
@@ -12,12 +13,12 @@ from geo_json_with_django.base.models import UUIDModel
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email: str, password: str, is_staff: bool, is_superuser: bool, **extra_fields):
+    def _create_user(self, email: str, password: str, is_staff: bool,
+                     is_superuser: bool, **extra_fields):
         """Creates and saves a User with the given email and password.
         """
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, **extra_fields)
+        user = self.model(email=email, is_staff=is_staff, is_active=True, is_superuser=is_superuser, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -30,10 +31,33 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, UUIDModel, PermissionsMixin):
-    first_name = models.CharField(_('First Name'), max_length=120, blank=True)
-    last_name = models.CharField(_('Last Name'), max_length=120, blank=True)
+    name = models.CharField(_('Full Name'), max_length=120)
     # https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/fields/#citext-fields
     email = CIEmailField(_('email address'), unique=True, db_index=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17)
+    # Language choices as defined by ISO 639 https://en.wiktionary.org/wiki/Index:All_languages
+    language = models.CharField(max_length=2, choices=(
+        ('en', 'English'),
+        ('fr', 'French'),
+        ('de', 'German'),
+        ('it', 'Italian'),
+        ('ja', 'Japanese'),
+        ('hi', 'Hindi'),
+        ('ko', 'Korean'),
+        ('ru', 'Russian')
+    ))
+    # Currency choices as defined by ISO 4217 https://en.wikipedia.org/wiki/ISO_4217#Active_codes
+    currency = models.CharField(max_length=3, choices=(
+        ('USD', 'United States dollar'),
+        ('EUR', 'Euro'),
+        ('JPY', 'Japanese yen'),
+        ('INR', 'Indian rupee'),
+        ('KPW', 'North Korean won'),
+        ('KRW', 'South Korean won'),
+        ('RUB', 'Russian ruble'),
+    ))
     is_staff = models.BooleanField(_('staff status'), default=False,
                                    help_text='Designates whether the user can log into this admin site.')
 
@@ -53,13 +77,7 @@ class User(AbstractBaseUser, UUIDModel, PermissionsMixin):
     def __str__(self):
         return str(self.id)
 
-    def get_full_name(self) -> str:
-        """Returns the first_name plus the last_name, with a space in between.
+    def get_name(self) -> str:
+        """Returns the name of user.
         """
-        full_name = '{} {}'.format(self.first_name, self.last_name)
-        return full_name.strip()
-
-    def get_short_name(self) -> str:
-        """Returns the short name for the user.
-        """
-        return self.first_name.strip()
+        return self.name

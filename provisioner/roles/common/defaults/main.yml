@@ -1,6 +1,6 @@
 ---
 # roles/common/defaults/main.yml
-common_timezone: utc+05:30
+common_timezone: Asia/Kolkata
 
 lc_lang: "en_US.UTF-8"
 lc_all: "en_US.utf8"

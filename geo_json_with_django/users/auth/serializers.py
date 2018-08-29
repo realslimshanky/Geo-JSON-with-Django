@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 # Geo JSON with Django Stuff
 from geo_json_with_django.users import services as user_services
-from geo_json_with_django.users.models import UserManager
+from geo_json_with_django.users.models import UserManager, User
 from geo_json_with_django.users.serializers import UserSerializer
 
 from . import tokens
@@ -19,9 +19,11 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(required=True)
 
 
-class RegisterSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
-    password = serializers.CharField(required=True)
+class RegisterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'phone_number', 'language', 'currency', 'email', 'password']
 
     def validate_email(self, value):
         user = user_services.get_user_by_email(email=value)
