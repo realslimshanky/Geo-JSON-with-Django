@@ -1,0 +1,66 @@
+[vagrant]
+192.168.33.12
+
+[vagrant:vars]
+vm=1
+deploy_environment=vagrant
+project_namespace={{ project_name }}-{{ deploy_environment }}
+user=vagrant
+project_path=/home/vagrant/geo-json-with-django-web
+venv_path=/home/vagrant/venv
+django_requirements_file=requirements/development.txt
+django_settings="settings.development"
+use_letsencrypt=False
+pg_db=geo_json_with_django
+pg_user=vagrant
+pg_password=vagrant
+domain_name=vagrant.geo_json_with_django.com
+
+[dev]
+dev.geo_json_with_django.com
+
+[dev:vars]
+vm=0
+deploy_environment=dev
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_environment }}
+project_path=/home/ubuntu/{{ deploy_environment }}/geo-json-with-django-web
+venv_path=/home/ubuntu/{{ deploy_environment }}/{{ project_name }}-venv
+use_letsencrypt=True
+letsencrypt_email=abc@shanky.xyz
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=dev.geo_json_with_django.com
+
+
+[qa]
+qa.geo_json_with_django.com
+
+[qa:vars]
+vm=0
+deploy_environment=qa
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_environment }}
+project_path=/home/ubuntu/{{ deploy_environment }}/geo-json-with-django-web
+venv_path=/home/ubuntu/{{ deploy_environment }}/{{ project_name }}-venv
+use_letsencrypt=True
+letsencrypt_email=abc@shanky.xyz
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=qa.geo_json_with_django.com
+
+[production]
+geo_json_with_django.com
+
+[production:vars]
+vm=0
+deploy_environment=prod
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_environment }}
+project_path=/home/ubuntu/{{ deploy_environment }}/geo-json-with-django-web
+venv_path=/home/ubuntu/{{ deploy_environment }}/{{ project_name }}-venv
+use_letsencrypt=True
+letsencrypt_email=abc@shanky.xyz
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=geo_json_with_django.com

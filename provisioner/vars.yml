@@ -1,0 +1,7 @@
+---
+project_name: geo_json_with_django
+project_repo_url: git@github.com:realslimshanky/geo-json-with-django-web.git
+project_repo_remote: origin
+repo_version: master
+pg_gis: False
+sass_with_django_compressor: True
