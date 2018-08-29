@@ -115,7 +115,7 @@ Status: 204 No-Content
 
 ## Get profile of current logged-in user
 ```
-GET /api/me (requires authentication)
+GET /api/user (requires authentication)
 ```
 
 __Response__
@@ -131,7 +131,7 @@ __Response__
 
 ## Update profile of current logged-in user
 ```
-PATCH /api/me (requires authentication)
+PATCH /api/user (requires authentication)
 ```
 
 __Example__
@@ -151,4 +151,44 @@ __Response__
     "last_name": "Warner",
     "email": "john@localhost.com",
 }
+```
+
+## List all active profiles
+```
+GET /api/user/all (requires authentication)
+```
+
+__Response__
+
+```json
+[
+    {
+        "id": "a6959577-69d1-4c8f-9dc8-6caa5a86e847",
+        "name": "New User",
+        "phone_number": "9999999999",
+        "language": "en",
+        "currency": "USD",
+        "email": "new@user.com"
+    },
+    {
+        "id": "2a04d258-b6af-4fe8-8daa-95ccc8da336f",
+        "name": "Shashank Kumar",
+        "phone_number": "8888888888",
+        "language": "hi",
+        "currency": "INR",
+        "email": "root@root.com"
+    }
+]
+```
+
+## Delete current user
+```
+DELETE /api/user (requires authentication)
+```
+
+__Response__
+
+
+```
+Status: 204 No-Content
 ```

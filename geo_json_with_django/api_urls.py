@@ -11,7 +11,7 @@ singleton_router = SingletonRouter(trailing_slash=False)
 
 # Register all the django rest framework viewsets below.
 default_router.register('auth', AuthViewSet, base_name='auth')
-singleton_router.register('me', CurrentUserViewSet, base_name='me')
+singleton_router.register('user', CurrentUserViewSet, base_name='user')
 
 # Combine urls from both default and singleton routers and expose as
 # 'urlpatterns' which django can pick up from this module.
