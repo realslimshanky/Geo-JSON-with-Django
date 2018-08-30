@@ -18,8 +18,9 @@ class ServiceRegionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     permission_classes = (IsProvider,)
 
     def create(self, request, *args, **kargs):
-        request.data['region_coordinates'] = self.get_polygon_object(
-            request.data['region_coordinates'])
+        if 'region_coordinates' in request.data:
+            request.data['region_coordinates'] = self.get_polygon_object(
+                request.data['region_coordinates'])
         return self.perform_deserialization(request.data)
 
     def update(self, request, *args, **kargs):
