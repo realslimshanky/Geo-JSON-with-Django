@@ -155,7 +155,7 @@ __Response__
 
 ## List all active profiles
 ```
-GET /api/user/all (requires authentication)
+GET /api/user/all
 ```
 
 __Response__
@@ -191,4 +191,374 @@ __Response__
 
 ```
 Status: 204 No-Content
+```
+
+# Service Region
+
+## Create Service Region
+```
+POST /api/service (require authentication)
+```
+
+__Example__
+```json
+{
+    "name": "Sea side apartments",
+    "price": 300,
+    "region_coordinates": "[(11.22, 13.11), (22.33, 22.33), (41.11, 42.22), (52.43, 5.22)]"
+}
+```
+
+__Response__
+```json
+{
+    "id": "f8652f56-7360-40a0-a10a-85c69c88e940",
+    "provider": "Shashank Kumar",
+    "name": "Sea side apartments",
+    "price": 300,
+    "region_coordinates": {
+        "coordinates": [
+            [
+                [
+                    11.22,
+                    13.11
+                ],
+                [
+                    22.33,
+                    22.33
+                ],
+                [
+                    41.11,
+                    42.22
+                ],
+                [
+                    52.43,
+                    5.22
+                ],
+                [
+                    11.22,
+                    13.11
+                ]
+            ]
+        ],
+        "type": "Polygon"
+    }
+}
+```
+
+## List Service Region
+```
+GET /api/service
+```
+
+__Response__
+
+```json
+{
+    "count": 3,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": "d8dbbfc1-cc98-45f2-b469-f57e750e77d9",
+            "provider": "Shashank Kumar",
+            "name": "Metropolis",
+            "price": 0,
+            "region_coordinates": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            30.21,
+                            30.21
+                        ],
+                        [
+                            21.22,
+                            21.22
+                        ],
+                        [
+                            53.45,
+                            53.45
+                        ],
+                        [
+                            60.00,
+                            60.00
+                        ],
+                        [
+                            30.21,
+                            30.21
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "id": "f8652f56-7360-40a0-a10a-85c69c88e940",
+            "provider": "Shashank Kumar",
+            "name": "plot no 13",
+            "price": 100,
+            "region_coordinates": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            20.00,
+                            30.00
+                        ],
+                        [
+                            15.12,
+                            13.12
+                        ],
+                        [
+                            34.34,
+                            33.45
+                        ],
+                        [
+                            65.32,
+                            12.36
+                        ],
+                        [
+                            20.00,
+                            30.00
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "id": "1b16a8d6-3892-4e0c-a7fd-cb4e990a3b3b",
+            "provider": "Bhavesh Joshi",
+            "name": "Garden Area",
+            "price": 0,
+            "region_coordinates": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            11.00,
+                            11.00
+                        ],
+                        [
+                            30.23,
+                            50.56
+                        ],
+                        [
+                            50.11,
+                            50.23
+                        ],
+                        [
+                            50.11,
+                            10.23
+                        ],
+                        [
+                            11.00,
+                            11.00
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}
+```
+
+## Retrieve Service Region
+```
+GET /api/service/:id
+```
+
+__Response__
+
+```json
+{
+    "id": "f8652f56-7360-40a0-a10a-85c69c88e940",
+    "provider": "Shashank Kumar",
+    "name": "plot no 13",
+    "price": 100,
+    "region_coordinates": {
+        "coordinates": [
+            [
+                [
+                    20.00,
+                    30.00
+                ],
+                [
+                    15.12,
+                    13.12
+                ],
+                [
+                    34.34,
+                    33.45
+                ],
+                [
+                    65.32,
+                    12.36
+                ],
+                [
+                    20.00,
+                    30.00
+                ]
+    ]
+        ],
+        "type": "Polygon"
+    }
+}
+```
+
+## Update Service Region
+```
+PUT /api/service/:id (requires authentication)
+```
+
+__Example__
+```json
+{
+    "name": "South Villas",
+    "price": 100,
+    "region_coordinates": "[(11.22, 13.11), (22.33, 22.33), (41.11, 42.22), (52.43, 55.22)]"
+}
+```
+
+__Response__
+```json
+{
+    "id": "f8652f56-7360-40a0-a10a-85c69c88e940",
+    "provider": "Shashank Kumar",
+    "name": "South Villas",
+    "price": 100,
+    "region_coordinates": {
+        "coordinates": [
+            [
+                [
+                    11.22,
+                    13.11
+                ],
+                [
+                    22.33,
+                    22.33
+                ],
+                [
+                    41.11,
+                    42.22
+                ],
+                [
+                    52.43,
+                    55.22
+                ],
+                [
+                    11.22,
+                    13.11
+                ]
+            ]
+        ],
+        "type": "Polygon"
+    }
+}
+```
+
+## Partial Update Service Region
+```
+PATCH /api/service/:id (requires authentication)
+```
+
+__Example__
+```json
+{
+    "name": "Sea side villa"
+}
+```
+
+__Response__
+```json
+{
+    "id": "f8652f56-7360-40a0-a10a-85c69c88e940",
+    "provider": "New User",
+    "name": "Sea side villa",
+    "price": 300,
+    "region_coordinates": {
+        "coordinates": [
+            [
+                [
+                    11.22,
+                    13.11
+                ],
+                [
+                    22.33,
+                    22.33
+                ],
+                [
+                    41.11,
+                    42.22
+                ],
+                [
+                    52.43,
+                    55.22
+                ],
+                [
+                    11.22,
+                    13.11
+                ]
+            ]
+        ],
+        "type": "Polygon"
+    }
+}
+```
+
+## Delete Service Region
+```
+DELETE /api/service/:id (requires authentication)
+```
+
+__Response__
+```
+204 No Content
+```
+
+## Search Service Region
+```
+POST /api/service/search
+```
+
+__Example__
+```json
+{
+    "longitude": 30.00,
+    "latitude": 38.00
+}
+```
+
+__Response__
+```json
+[
+    {
+        "id": "d8dbbff1-cc98-45f2-b469-f57e750e77d9",
+        "provider": "Mister Verma",
+        "name": "Village Area",
+        "price": 50,
+        "region_coordinates": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [
+                        11.22,
+                        13.11
+                    ],
+                    [
+                        52.43,
+                        55.22
+                    ],
+                    [
+                        30.00,
+                        40.00
+                    ],
+                    [
+                        11.22,
+                        13.11
+                    ]
+                ]
+            ]
+        }
+    }
+]
 ```

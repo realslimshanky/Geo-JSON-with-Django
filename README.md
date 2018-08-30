@@ -3,7 +3,13 @@ Geo JSON with Django
 
 __Version:__ 0.0.0
 
-This project showcases use of GGeo SON in Django environment.
+This project showcases use of GeoJSON in Django environment.
+
+## Description
+
+Imagine a scenario where there are multiple service providers and their respective service regions which is bounded by list of longitude and latitudes. A person can easily find all the service provider in the region by simply using a longitude and latitude pair.
+
+A provider can signup using `/api/auth` endpoints and register service regions using `/api/service` endpoints. A person can search for service regions in their respective longitude and latitude using `api/service/search` endpoint. For detailed description on how to use these endpoints please read [API Endpoints Doc](docs/api/endpoints.md) 
 
 ## Getting up and running
 
