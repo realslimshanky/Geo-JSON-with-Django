@@ -24,13 +24,16 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.gis',
     # 'django.contrib.humanize',  # Useful template tags
 
     'geo_json_with_django.base',
     'geo_json_with_django.users',
+    'geo_json_with_django.geo_service',
 
     'rest_framework',  # http://www.django-rest-framework.org/
     'rest_framework_swagger',
+    'rest_framework_gis',
     'versatileimagefield',  # https://github.com/WGBH/django-versatileimagefield/
     'corsheaders',   # https://github.com/ottoyiu/django-cors-headers/
 
@@ -258,8 +261,19 @@ SERVER_EMAIL = env('SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres://localhost/geo_json_with_django'),
 }
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES['default']['CONN_MAX_AGE'] = 10
+
+# CACHE CONFIGURATION
+# -----------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/2.1/topics/cache/#filesystem-caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
 
 
 # TEMPLATE CONFIGURATION
