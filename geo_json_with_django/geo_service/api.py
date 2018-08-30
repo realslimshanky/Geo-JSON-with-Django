@@ -52,7 +52,7 @@ class ServiceRegionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
                 point_object = Point([request.data['longitude'], request.data['latitude']])
                 queryset = self.get_queryset()
                 for region in queryset:
-                    if not region.is_coordinate_touching(point_object):
+                    if not region.is_coordinate_inclusive(point_object):
                         queryset = queryset.exclude(id=region.id)
                 serializer = self.get_serializer(queryset, many=True)
                 return response.Ok(serializer.data)

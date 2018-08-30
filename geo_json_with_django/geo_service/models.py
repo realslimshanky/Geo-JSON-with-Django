@@ -9,8 +9,10 @@ class ServiceRegion(TimeStampedUUIDModel):
     price = models.FloatField('Service Region Price')
     region_coordinates = models.PolygonField()
 
-    def is_coordinate_touching(self, point_object):
-        return self.region_coordinates.touches(point_object)
+    def is_coordinate_inclusive(self, point_object):
+        return self.region_coordinates.touches(point_object) or\
+            self.region_coordinates.within(point_object) or\
+            self.region_coordinates.contains(point_object)
 
     class Meta:
         ordering = ['region_coordinates']
