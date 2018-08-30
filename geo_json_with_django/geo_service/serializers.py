@@ -5,7 +5,7 @@ from . import models
 
 
 class ServiceRegionSerializer(GeoModelSerializer):
-    provider = serializers.CharField(source='provider.name')
+    provider = serializers.CharField(source='provider.name', read_only=True)
 
     def create(self, validated_data):
         provider = self.context['request'].user
@@ -15,4 +15,3 @@ class ServiceRegionSerializer(GeoModelSerializer):
     class Meta:
         model = models.ServiceRegion
         fields = ['id', 'provider', 'name', 'price', 'region_coordinates']
-        read_only_fields = ['provider']
