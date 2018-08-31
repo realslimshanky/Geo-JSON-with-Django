@@ -16,3 +16,6 @@ class ServiceRegion(TimeStampedUUIDModel):
 
     class Meta:
         ordering = ['region_coordinates']
+
+    def __str__(self):
+        return str(self.id)

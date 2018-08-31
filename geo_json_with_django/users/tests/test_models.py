@@ -8,13 +8,14 @@ from geo_json_with_django.users.models import User
 class UserModelTestCase(TestCase):
 
     def test_create_user(self):
-        u = User.objects.create_user(email='f@F.com', password='abc', first_name="F", last_name='B')
+        u = User.objects.create_user(
+            email='f@F.com', password='abc', name='FB abc',
+            phone_number='+9999999999', language='en', currency='USD')
         assert u.is_active is True
         assert u.is_staff is False
         assert u.is_superuser is False
         assert u.email == 'f@f.com'
-        assert u.get_full_name() == 'F B'
-        assert u.get_short_name() == 'F'
+        assert u.get_name() == 'FB abc'
         assert str(u) == str(u.id)
 
     def test_create_super_user(self):
