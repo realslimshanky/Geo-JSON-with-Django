@@ -20,3 +20,7 @@ newrelic==2.106.1.88
 # Basic Auth Protection
 # -------------------------------------
 django-auth-wall==0.2.0
+
+# Deployment
+# -------------------------------------
+uWSGI==2.0.17.1

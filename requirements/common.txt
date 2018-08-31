@@ -29,6 +29,7 @@ django-versatileimagefield==1.9
 # -------------------------------------
 djangorestframework==3.8.2
 django-rest-swagger==2.2.0
+djangorestframework-gis==0.13
 
 # Static files
 # -------------------------------------
